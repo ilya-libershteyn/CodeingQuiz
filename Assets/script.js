@@ -14,6 +14,7 @@ var scoreEl = document.querySelector("#score");
 var resultEl = document.querySelector("#result");
 var finalScoreEl = document.querySelector("#final_score");
 var initialsEl = document.querySelector("#initials");
+var recordBtn = document.querySelector("#recor");
 
 var count = 0;
 var points = 0;
@@ -132,9 +133,12 @@ function record(event)
     };
 
     localStorage.setItem("player", JSON.stringify(player));
+
+    event.textContent = "Recorded!";
 }
 
 startBtn.addEventListener("click", loadQuiz);
-reStartBtn.addEventListener("click", loadStart)''
+reStartBtn.addEventListener("click", loadStart);
 nextBtn.addEventListener("click", loadNextQuestion);
+recordBtn.addEventListener("click", record);
 //answersElList.addEventListener("click", checkAnswer);

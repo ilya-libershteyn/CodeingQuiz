@@ -110,12 +110,13 @@ var questionList = [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13, q14]
 // Create a quiz from the list
 function makeQuiz(size)
 {
+    // Set to a default size if it's out of bounds
     if(size < 1 || size > questionList.length)
     {
         size = 10;
     }
 
-    var quiz;
+    var quiz = [];
 
     for(var i = 0; i < size;)
     {
@@ -124,7 +125,7 @@ function makeQuiz(size)
          
         // Check if question has not been selected yet, 
         // push to quiz and increment i if it hasn't
-        if(quiz.items.indexOf(questionList[index]) === -1)
+        if(quiz.indexOf(questionList[index]) === -1)
          {
              quiz.push(questionList[index]);
              i++;

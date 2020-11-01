@@ -6,33 +6,35 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <title>Coding Quiz!</title>
         <style>
-            .question 
+            .hide
             {
                 display: none;
-            }
-            .question.active
-            {
-                display: block;
             }
         </style>
     </head>        
     <body>
 
-        <div>
+        <div id="nav">
 
         </div>
 
-        <div id="question">
-            <h2 class="questionText"></h2>
-            <button id="answerA"></button>
-            <button id="answerB"></button>
-            <button id="answerC"></button>
-            <button id="answerD"></button>
+
+
+        <div id="question" class="hide">
+            <h2 id="questionText"></h2>
+            <button id="answer"></button>
+            <button id="answer"></button>
+            <button id="answer"></button>
+            <button id="answer"></button>
         </div>
 
-
-        <button id="start">Start</button>
-
+        <div id="intro">
+            <h1>Coding Quiz Challenge</h1>
+            <p>Take the coding quiz challenge! Solve all questions in the time limit! 
+            <br>Incorrect answers will be penalized!</p>
+            <button id="start">Start</button>
+        </div>
+        <script src="assets/quiz.js"></script>
         <script src="assets/script.js"></script>
     </body>
 </html>

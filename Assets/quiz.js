@@ -106,3 +106,30 @@ var q15 = new Question(
     "click"); 
 // Array to store questions
 var questionList = [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13, q14];
+
+// Create a quiz from the list
+function makeQuiz(size)
+{
+    if(size < 1 || size > questionList.length)
+    {
+        size = 10;
+    }
+
+    var quiz;
+
+    for(var i = 0; i < size;)
+    {
+        // Select a random question from questionList
+        var index = Math.floor((Math.random() * questionList.length))
+         
+        // Check if question has not been selected yet, 
+        // push to quiz and increment i if it hasn't
+        if(quiz.items.indexOf(questionList[index]) === -1)
+         {
+             quiz.push(questionList[index]);
+             i++;
+         }
+    }
+
+    return quiz
+}

@@ -1,5 +1,5 @@
 const MAX_QUESTIONS = 10;
-const MAX_TIME = 1500;
+const MAX_TIME = 25;
 const TIME_PENALTY = 10;
 
 var startBtn = document.querySelector("#start");
@@ -18,6 +18,7 @@ var recordBtn = document.querySelector("#record");
 var highScoreBtn = document.querySelector("#high_scores");
 var returnBtn = document.querySelector("#return");
 var scoreListEl = document.querySelector("#list");
+var timeEl = document.querySelector("#time");
 
 var count = 0;
 var points = 0;
@@ -26,6 +27,8 @@ var questions = makeQuiz(MAX_QUESTIONS);
 console.log(questions)
 var answer;
 var curr = introEl;
+var time;
+var remainingTime;
 
 function loadQuestion()
 {
@@ -68,6 +71,8 @@ function loadQuestion()
 
 function loadQuiz(event)
 {
+    clearInterval(time);
+    startTimer();
     console.log("Entered loadQuiz")
     event.preventDefault();
     intro.classList.add("hide");
@@ -194,6 +199,28 @@ function returnToPrevious(event)
     highScoreBtn.classList.remove("hide");
     scoreListEl.classList.add("hide");
     curr.classList.remove("hide");
+}
+
+function startTimer()
+{
+    remainingTime = MAX_TIME * 60
+
+    time = setInterval(function ()
+    {
+       remainingTime--;
+       
+       if(remainingTime < 0)
+       {
+           clearInterval(time);
+           loadResult();
+       }
+       else
+       {
+           var minute = Math.floor(remainingTime / 60).toString();
+           var second = (remainingTime % 60).toString();
+           timeEl.textContent = minute.toString() + ":" + second.toString();
+       }
+    }, 1000);
 }
 
 startBtn.addEventListener("click", loadQuiz);

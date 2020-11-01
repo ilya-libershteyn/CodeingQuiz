@@ -97,6 +97,7 @@ function checkAnswer(event)
     {
         answer.setAttribute("style", "background: #ff0000");
         gradeEl.textContent = "Incorrect!";
+        remainingTime = remainingTime - 120;
     }
 
     scoreEl.textContent = points;

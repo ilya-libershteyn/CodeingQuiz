@@ -1,6 +1,6 @@
-const MAX_QUESTIONS = 10;
-const MAX_TIME = 25;
-const TIME_PENALTY = 10;
+const MAX_QUESTIONS = 10;       // maximum number of questions
+const MAX_TIME = 25;            // maximum time in minutes
+const TIME_PENALTY = 120;       // penalty for incorrect answers
 
 var startBtn = document.querySelector("#start");
 var reStartBtn = document.querySelector("#restart");
@@ -23,24 +23,30 @@ var timeEl = document.querySelector("#time");
 var count = 0;
 var points = 0;
 var question;
-var questions = makeQuiz(MAX_QUESTIONS);
+var questions = makeQuiz(MAX_QUESTIONS);    // creating a quiz from the master list of questions in quiz.js
 console.log(questions)
 var answer;
-var curr = introEl;
+var curr = introEl;     // pointer to the current page being displayed
 var time;
 var remainingTime;
 
+// Function to load a question
 function loadQuestion()
 {
+    // hiding the Next button and result if user comes in from previous question
     if(!nextBtn.classList.contains("hide"))
     {
         nextBtn.classList.add("hide");
     }
 
+    gradeEl.textContent = "";
+
     question = questions[count];
 
+    // display question text
     qTextEl.textContent = question.question;
     
+    // display answers, up to four
     for(var i = 0; i < question.answers.length; i++)
     {
         if(answersElList[i].classList.contains("hide"))
@@ -51,13 +57,14 @@ function loadQuestion()
         
         if(question.answers[i] === question.correct)
         {
+            // Mark correct answer from list
             answersElList[i].classList.add("correct");
         }
 
         answersElList[i].addEventListener("click", checkAnswer);
     }
 
-    
+    // if question has less than four answers, hide the remaining elements
     while(i < answersElList.length)
     {
         answersElList[i].classList.add("hide");
@@ -69,6 +76,7 @@ function loadQuestion()
     curr = questionEl;
 }
 
+// Start the quiz
 function loadQuiz(event)
 {
     clearInterval(time);
@@ -80,6 +88,7 @@ function loadQuiz(event)
     loadQuestion(event);
 }
 
+// Check if selected answer was correct
 function checkAnswer(event)
 {
     event.preventDefault();
@@ -88,41 +97,49 @@ function checkAnswer(event)
 
     if(answer.classList.contains("correct"))
     {
+        // Color the correct answer green
         answer.setAttribute("style", "background: #08f26e");
         gradeEl.textContent = "Correct!";
         points++;
         
     }
     else
-    {
+    {   
+        // Incorrect answers are colored red
         answer.setAttribute("style", "background: #ff0000");
         gradeEl.textContent = "Incorrect!";
-        remainingTime = remainingTime - 120;
+        remainingTime = remainingTime - 120;    // Penalty for incorrect answers
     }
 
     scoreEl.textContent = points;
+
+    // Reveal the button to the next question
     if(nextBtn.classList.contains("hide"))
     {
         nextBtn.classList.remove("hide");
     }
 }
 
+// Handler function for the Next button
 function loadNextQuestion(event)
 {
     event.preventDefault();
 
+    // Revert the selected button back to default color
     answer.setAttribute("style", "background: -internal-light-dark");
     
-    if(count < MAX_QUESTIONS)
+    if(count < MAX_QUESTIONS && remainingTime > 0)
     {
         loadQuestion();
     }
     else
     {
+        // Enter here when we've run out of questions or time
         loadResult();
     }
 }
 
+// Loads the end page
 function loadResult(event)
 {
     questionEl.classList.add("hide");
@@ -133,6 +150,7 @@ function loadResult(event)
     curr = resultEl;
 }
 
+// Function to restart quiz from very beginning
 function loadStart(event)
 {
     event.preventDefault();
@@ -143,6 +161,7 @@ function loadStart(event)
     curr = introEl;
 }
 
+// Function to record user's high score
 function record(event)
 {
     var player = {
@@ -167,6 +186,7 @@ function record(event)
     event.target.textContent = "Recorded!";
 }
 
+// Handler function to view high scores list
 function viewHighScores(event)
 {
     event.preventDefault();
@@ -183,7 +203,6 @@ function viewHighScores(event)
         console.log(player)
         var entry = document.createElement("li");
         entry.textContent = player.name + "   Score: " + player.score;
-        //entry.textContent = player;
 
         scoreListEl.appendChild(entry);
     }
@@ -192,6 +211,7 @@ function viewHighScores(event)
     scoreListEl.classList.remove("hide");
 }
 
+// Handler function for exiting the high score list
 function returnToPrevious(event)
 {
     event.preventDefault();
@@ -202,6 +222,7 @@ function returnToPrevious(event)
     curr.classList.remove("hide");
 }
 
+// Function to start the timer
 function startTimer()
 {
     remainingTime = MAX_TIME * 60

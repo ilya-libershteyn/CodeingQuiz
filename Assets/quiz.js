@@ -9,15 +9,6 @@ class Question
         this.answers = answers,
         this.correct = correct;
     }
-
-   isCorrect = (answer) => 
-   {
-        if(answer === this.correct)
-        {
-            return true;
-        }
-        return false;
-   }
 }
 
 // Questions begin here

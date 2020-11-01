@@ -40,7 +40,7 @@ var q3 = new Question(
 var q4 = new Question(
     "How do you find the minimum of x and y using JavaScript?",
     ["min(x,y);", "Math.min(x,y);", "Math.min(xy);", "min(xy);"],
-    "Math.min(x,y)");
+    "Math.min(x,y);");
 
 var q5 = new Question(
     "Which of the following statements will throw an error? ",
@@ -65,11 +65,11 @@ var q8 = new Question(
 var q9 = new Question(
     "Which is the correct JavaScript syntax to change the HTML content given below?\n"
     + "<p id=\"test\">Hello World!</p>",
-    ["document.getElementById(\“test\”).innerHTML = \“Hello DataFlair!\”", 
-    "document.getElementsById(\“test\”).innerHTML = \“Hello DataFlair!\”; ", 
-    "document.getElementById(test).innerHTML = \“Hello DataFlair!\”; ",
-    "document.getElementByTagName(\“p\”)[0].innerHTML = \“Hello DataFlair!\”;"],
-    "document.getElementById(\“test\”).innerHTML = \“Hello DataFlair!\”e");
+    ["document.getElementById(\“test\”).innerHTML = \“Hello world!\”", 
+    "document.getElementsById(\“test\”).innerHTML = \“Hello world!\”; ", 
+    "document.getElementById(test).innerHTML = \“Hello world!\”; ",
+    "document.getElementByTagName(\“p\”)[0].innerHTML = \“Hello world!\”;"],
+    "document.getElementById(\“test\”).innerHTML = \“Hello world!\”e");
 
 var q10 = new Question(
     "Determine the result - String(\"Hello\") === \"Hello\";",
@@ -77,10 +77,10 @@ var q10 = new Question(
     "true");
 
 var q11 = new Question(
-    "What is the correct JavaScript syntax to print “DataFlair” in the console?",
-    ["print(\“DataFlair\”);", "console.print(\“DataFlair\”);",
-    "log.console(\“DataFlair\”);", "console.log(\“DataFlair\”);"],
-    "console.log(\“DataFlair\”);");
+    "What is the correct JavaScript syntax to print “Hello world!” in the console?",
+    ["print(\“Hello world!\”);", "console.print(\“Hello world!\”);",
+    "log.console(\“Hello world!\”);", "console.log(\“Hello world!\”);"],
+    "console.log(\“Hello world!\”);");
 
 var q12 = new Question(
     "Which of the given options is an incorrect variable name",

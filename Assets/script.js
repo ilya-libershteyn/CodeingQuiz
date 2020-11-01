@@ -14,13 +14,18 @@ var scoreEl = document.querySelector("#score");
 var resultEl = document.querySelector("#result");
 var finalScoreEl = document.querySelector("#final_score");
 var initialsEl = document.querySelector("#initials");
-var recordBtn = document.querySelector("#recor");
+var recordBtn = document.querySelector("#record");
+var highScoreBtn = document.querySelector("#high_scores");
+var returnBtn = document.querySelector("#return");
+var scoreListEl = document.querySelector("#list");
 
 var count = 0;
 var points = 0;
 var question;
 var questions = makeQuiz(MAX_QUESTIONS);
+console.log(questions)
 var answer;
+var curr = introEl;
 
 function loadQuestion()
 {
@@ -53,9 +58,12 @@ function loadQuestion()
     while(i < answersElList.length)
     {
         answersElList[i].classList.add("hide");
+        i++;
     }
 
     count++;
+    console.log(count);
+    curr = questionEl;
 }
 
 function loadQuiz(event)
@@ -95,6 +103,8 @@ function checkAnswer(event)
 
 function loadNextQuestion(event)
 {
+    event.preventDefault();
+
     answer.setAttribute("style", "background: -internal-light-dark");
     
     if(count < MAX_QUESTIONS)
@@ -107,38 +117,88 @@ function loadNextQuestion(event)
     }
 }
 
-function loadResult()
+function loadResult(event)
 {
-    event.preventDefault();
-
     questionEl.classList.add("hide");
     resultEl.classList.remove("hide");
 
     finalScoreEl.textContent = points;
+
+    curr = resultEl;
 }
 
-function loadStart()
+function loadStart(event)
 {
     event.preventDefault();
 
     resultEl.classList.add("hide");
     introEl.classList.remove("hide");
+
+    curr = introEl;
 }
 
 function record(event)
 {
     var player = {
-        name: initialsEl.value,
-        score: points 
+        'name': initialsEl.value,
+        'score': points 
     };
 
-    localStorage.setItem("player", JSON.stringify(player));
+    let players = JSON.parse(localStorage.getItem("players")) || [];
 
-    event.textContent = "Recorded!";
+    players.push(player);
+
+    players = players.sort((a, b) =>
+    {
+        if(a.score != b.score)
+        {
+            return b.score - a.score;
+        }
+    });
+
+    localStorage.setItem("players", JSON.stringify(players));
+
+    event.target.textContent = "Recorded!";
+}
+
+function viewHighScores(event)
+{
+    event.preventDefault();
+
+    highScoreBtn.classList.add("hide");
+    returnBtn.classList.remove("hide");
+
+    let players = JSON.parse(localStorage.getItem('players'));
+    console.log(players);
+
+    for(key in players)
+    {
+        let player = players[key];
+        console.log(player)
+        var entry = document.createElement("li");
+        entry.textContent = player.name + "   Score: " + player.score;
+        //entry.textContent = player;
+
+        scoreListEl.appendChild(entry);
+    }
+
+    curr.classList.add("hide");
+    scoreListEl.classList.remove("hide");
+}
+
+function returnToPrevious(event)
+{
+    event.preventDefault();
+
+    returnBtn.classList.add("hide");
+    highScoreBtn.classList.remove("hide");
+    scoreListEl.classList.add("hide");
+    curr.classList.remove("hide");
 }
 
 startBtn.addEventListener("click", loadQuiz);
 reStartBtn.addEventListener("click", loadStart);
 nextBtn.addEventListener("click", loadNextQuestion);
 recordBtn.addEventListener("click", record);
-//answersElList.addEventListener("click", checkAnswer);
+highScoreBtn.addEventListener("click", viewHighScores);
+returnBtn.addEventListener("click", returnToPrevious);

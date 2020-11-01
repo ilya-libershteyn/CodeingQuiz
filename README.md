@@ -4,7 +4,9 @@
 A simple coding quiz done as practice for javascript event handling. It is very crude, with minimal styling.
 
 ![](https://github.com/ilya-libershteyn/CodeingQuiz/blob/main/Assets/Screenshot_1.jpg)
+
 ![](https://github.com/ilya-libershteyn/CodeingQuiz/blob/main/Assets/Screenshot_2.jpg)
+
 ![](https://github.com/ilya-libershteyn/CodeingQuiz/blob/main/Assets/Screenshot_4.jpg)
 
 ## Links:
